@@ -26,6 +26,8 @@ The data is already split into folds and provided in the repo at `datamount/trai
 
 ## Model 1 - find study level bounding boxes. 
 
+For this step run `./bin/2_bounding_box_train_infer.sh`. The details of the steps are below. 
+
 ### Bounding Box Label Creation
 
 The first script, `_make_bbox_part1.py` uses the segmentations to create a bounding box for 
