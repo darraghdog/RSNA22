@@ -83,11 +83,12 @@ for tt, (t,row) in enumerate(dd.iterrows()):
     bbfn.add(imgorig, x0//2,y0//2,x1//2,y1//2, color = 'green')
     
     imgout = np.concatenate((tdimg1, imgorig, imgcrop, tmpl), 1)
-    imgls.append(imgout)
+    if tt%2==0:
+        imgls.append(imgout)
     #Image.fromarray(imgout).save(f'tmp/{str(tt).zfill(5)}.png')
 
 # Save GIF
 imgs = map(Image.fromarray,  imgls)
 img = next(imgs)  # extract first image from iterator
 img.save(fp='figs/study.gif', format='GIF', append_images=imgs,
-         save_all=True, duration=40, loop=0)
+         save_all=True, duration=40 * 2, loop=0)
