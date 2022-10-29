@@ -8,3 +8,11 @@ Sponsored by [RSNA](https://www.rsna.org/)
    
 ![](figs/study.gif) 
 
+
+## Data set up
+
+Set up your [kaggle api](https://github.com/Kaggle/kaggle-api) for data download and run the below script. 
+```
+./bin/1_download.sh
+```
+The data is already split into folds and provided in the repo at `datamount/train_folded_v01.csv`.
