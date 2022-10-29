@@ -14,9 +14,7 @@ For convenience of monitoring models we are using [neptune.ai](https://neptune.a
 In the configs, in the `config/` directory, I have set the neptune project to `light/kaggle-rsna2022`. 
 You can switch this to your own neptune project, or else create a neptune project with that name.
    
-
-
-## Data set up
+### Data set up
 
 Set up your [kaggle api](https://github.com/Kaggle/kaggle-api) for data download and run the below script. 
 ```
@@ -24,11 +22,17 @@ Set up your [kaggle api](https://github.com/Kaggle/kaggle-api) for data download
 ```
 The data is already split into folds and provided in the repo at `datamount/train_folded_v01.csv`.
 
-## Model 1 - find study level bounding boxes. 
+## Training
+
+The training steps are detailed below. To run the full training pipeline, just execute, 
+```
+./bin/2_bounding_box_train_infer.sh
+```
+### Model 1 - find study level bounding boxes. 
 
 For this step run `./bin/2_bounding_box_train_infer.sh`. The details of the steps are below. 
 
-### Bounding Box Label Creation
+#### Bounding Box Label Creation
 
 The first script, `_make_bbox_part1.py` uses the segmentations to create a bounding box for 
 each slice in the study. We must align the z-axis direction of the slices to match slices for studies,
@@ -51,7 +55,7 @@ This outputs a file, `datamount/train_bbox_v01.csv.gz` in the format seen below.
 We also create a file `datamount/train_all_slices_v01.csv.gz` which is used for inference of boxes on all slices. 
 This contains study name, slice number and fold for all slices. 
 
-### Train a bounding box model
+#### Train a bounding box model
 
 To train a bounding box model we will use config `cfg_loc_dh_01B`. This model loads random dicom slices
 and learns for each, if there is a vertebrae bounding box, and if there is, what is the position of the 
@@ -61,7 +65,7 @@ of a box being present is calculated for all dicom slices.
 We run this model over each of 5 folds, and repeat it for 3 random seeds each. Obvously this model only,
 trains on the slices we have segmentations for.  
 
-### Run bounding box inference of all images. 
+#### Run bounding box inference of all images. 
 
 Here we take the weights of all trained models and run inference on all slices from found in the file 
 `datamount/train_all_slices_v01.csv.gz`. 
