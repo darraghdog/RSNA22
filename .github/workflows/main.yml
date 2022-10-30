@@ -32,13 +32,11 @@ jobs:
           description: "iiiii "
           files:  |
                   *.py
+                  requirements*.txt
                   models/*.py
                   data/*.py
                   configs/*.py
-                  configs/*.json
                   scripts/*.py
                   postprocess/*.py
-                  requirements.txt
-                  requirements_sub.txt
                   
           is_public: true
