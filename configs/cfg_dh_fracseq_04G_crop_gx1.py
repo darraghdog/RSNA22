@@ -1,6 +1,7 @@
 import os
 import sys
 import platform
+'''
 PATH = '/mount/rsna2022'
 if platform.system()=='Darwin':
     PATH = '/Users/dhanley/Documents/rsna2022'
@@ -9,7 +10,7 @@ if platform.system()=='Darwin':
     sys.path.append("models")
     sys.path.append("data")
     sys.path.append("postprocess")
-
+'''
 from default_config import basic_cfg
 import pandas as pd
 
