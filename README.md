@@ -132,6 +132,33 @@ C6_frac                                 0.943
 C7_frac                                 0.062
 ```
 
+### Model 3 - Slice level vertebrae and fracture labels
+
+Here we train up a 2D-CNN & 1D-RNN on random overlapping z-axis slices of each study. 
+The labels are the slice level vertebrae and fracture predictions of the previous model. 
+These weights are trained to recognise vertebrae and fractures and the mdoel weights are loaded for the next step.  
+
+We run 6 of the same models with a `resnest50d` CNN backbone using different seeds, and 4 
+of the same models with a `seresnext50_32x4d` CNN backbone. Besides the CNN backbone 
+everything is the same between the two models.
+
+For this step, see PART1 of `bin/4_vertebrae_fracture_train.sh`. 
+
+### Model 4 - Study level fracture labels
+
+The same architecture again (2.5D CNN+1d RNN) was used to train the full study over 
+on the final study level labels, found in `train.csv`. The CNN backbone was loaded 
+from the checkpoint weights of model 3 and set to no gradients, and a new 1d RNN 
+and attention mechanism were initialized and trained on top of this. 
+With the final labels, the competition metric as loss was used. 
+If there are more than 192 * 3 slices outputted, torch functional interpolation is 
+used to reshape them to a max sequence of 192.
+For both model 3 and 4, a single bounding box is used to crop all slices in a study, 
+and the same augmentation used across the study. 
+For model 4 only, the bounding box range (seen in the description of Model 1) was used 
+to exclude slices before the vertebrae started and ended. 
+And for model 4, the CNN outputted embeddings were extracted in chunks of 32 * 3 2.5d images.
+
 
 
 
