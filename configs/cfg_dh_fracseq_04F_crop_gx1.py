@@ -1,6 +1,7 @@
 import os
 import sys
 import platform
+PATH='./'
 '''
 PATH = '/mount/rsna2022'
 if platform.system()=='Darwin':
