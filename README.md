@@ -14,7 +14,7 @@ For convenience of monitoring models we are using [neptune.ai](https://neptune.a
 In the configs, in the `config/` directory, I have set the neptune project to `light/kaggle-rsna2022`. 
 You can switch this to your own neptune project, or else create a neptune project with that name.
    
-### Data set up
+## Data set up
 
 Set up your [kaggle api](https://github.com/Kaggle/kaggle-api) for data download and run the below script. 
 ```
@@ -34,7 +34,7 @@ For this step run `./bin/2_bounding_box_train_infer.sh`. The details of the step
 
 #### Bounding Box Label Creation
 
-The first script, `_make_bbox_part1.py` uses the segmentations to create a bounding box for 
+The first script, `scripts/_make_bbox_part1.py` uses the segmentations to create a bounding box for 
 each slice in the study. We must align the z-axis direction of the slices to match slices for studies,
 so we first load all dicom z-axis meta data to get the Study direction. We then load the segmentations, and 
 use the outer C1-C7 segment map position to create a bounding box for each slice in the labelled studies. 
@@ -70,6 +70,68 @@ trains on the slices we have segmentations for.
 Here we take the weights of all trained models and run inference on all slices from found in the file 
 `datamount/train_all_slices_v01.csv.gz`. 
 You can check out the config file `cfg_loc_dh_01B_test` for details. 
+
+#### Aggregate bounding box predictions. 
+
+Here we take the mean bounding box for each study / slice, taken over the different seeds. 
+We use the probabilities to roughly estimate along the z-axis of each study, 
+when the slices begin and end and add this to the file also. 
+The bounding boxes for each study are aggregated to a single study level box which surrounds all C1-C7 vertebrae. 
+
+### Model 2 - Slice level vertebrae and fracture labels
+
+For this step run `./bin/3_slice_vertebrae_train_infer.sh`. The details of the steps are below. 
+
+![](figs/slice_level_pseudo_preds.png) 
+
+In this step we train a model to learn the vertebrae volume ratio in each slice. 
+The vertebrae volume ratio is the segmentation pixel count of a slice divided by the max slice-wise pixel count in any slice for the study. 
+We multiply these by the study level fracture label to get an estimated slice fracture label as seen in the chart above. 
+
+#### C1-C7 vertebrae label creation. 
+
+The script `scripts/_make_seg_labels_part1.py` creates ratio labels for each vertebrae. This is 
+calculated by dividing the number of pixels for a vertebrae in the slice, by the 
+slice-wise max segemtation pixel count of the vertebrae in any slice. 
+
+#### Train a vertebrae model on ratio labels
+
+To train a bounding box model we will use three configs `cfg_dh_seg_02G`, `cfg_dh_seg_04A` and `cfg_dh_seg_04F`. 
+This model loads a random sequence of 96 dicoms and comverts them to 32 * 3-channel images. 
+Two models crop the dicoms based on the bounding boxes and two do not. It then uses a 2D-CNN, followed by a
+1D-RNN to learn the vertebrae ration labels. 
+
+#### Run vertebrae inference all studies
+
+Now we load the weights of the trained model and run inference using overlapping windows of each study. 
+
+#### Aggregate vertebrae predictions and make fracture label
+
+The script `scripts/_make_seg_labels_part2.py` takes the average of the slice level vertebrate predictions across the models and windows. 
+The predictions represent the vertebrae ratio as described before.  
+We then multiply these predictions by the study level vertebrae fracture label to get an approximate slice level vertebrae prediction. 
+
+Below is an example of the values outputted to file for each single slice. 
+```
+StudyInstanceUID    1.2.826.0.1.3680043.10041
+slice_number                              149
+C1_pred                                 0.000
+C2_pred                                 0.000
+C3_pred                                 0.000
+C4_pred                                 0.007
+C5_pred                                 0.131
+C6_pred                                 0.943
+C7_pred                                 0.062
+fold                                        2
+C1_frac                                 0.000
+C2_frac                                 0.000
+C3_frac                                 0.000
+C4_frac                                 0.000
+C5_frac                                 0.131
+C6_frac                                 0.943
+C7_frac                                 0.062
+```
+
 
 
 
