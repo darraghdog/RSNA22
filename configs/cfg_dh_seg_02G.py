@@ -1,6 +1,7 @@
 import os
 import sys
 import platform
+PATH = './'
 '''
 PATH = '/mount/rsna2022'
 PATH = '/Users/dhanley/Documents/rsna2022'
