@@ -3,6 +3,7 @@ RSNA 2022 - 3rd Place solution - Cervical Spine Fracture Detection
 
 This is the source code for the 3rd place solution to the [RSNA 2022 Cervical Spine Fracture Detection](https://www.kaggle.com/competitions/rsna-2022-cervical-spine-fracture-detection).  
 Video overview: [link](????)  
+Slides : [link](https://docs.google.com/presentation/d/1lS4yOTJT4EyaCjODGIO811RGex9jKQdZypzOjY_jxDA/edit?usp=sharing)
   
 Sponsored by [RSNA](https://www.rsna.org/)
    
@@ -92,6 +93,17 @@ Here we take the mean bounding box for each study / slice, taken over the differ
 We use the probabilities to roughly estimate along the z-axis of each study, 
 when the slices begin and end and add this to the file also. 
 The bounding boxes for each study are aggregated to a single study level box which surrounds all C1-C7 vertebrae. 
+
+The final outputted file on study level is structured like below, 
+```
+                           x0   y0   x1   y1  slnum_from  slnum_to  slnum_max
+StudyInstanceUID                                                             
+1.2.826.0.1.3680043.1679   93  111  389  427          47       203        221
+1.2.826.0.1.3680043.1685  117  102  401  329           2       206        215
+1.2.826.0.1.3680043.1689  144   97  371  386           2       392        482
+1.2.826.0.1.3680043.1708   91  113  437  356          11       167        167
+1.2.826.0.1.3680043.1750  145  137  388  391          74       242        308
+```
 
 ### Model 2 - Slice level vertebrae and fracture labels
 
