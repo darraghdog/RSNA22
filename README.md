@@ -31,17 +31,17 @@ The training steps are detailed below. To run the full training pipeline, just e
 
 For reference, the scruture of the training pipeline is below. 
 
-| Script (`bin/`) | Params config (`configs/`) | Data procesing (`data/`) | Model (`models/`) | Postprocessing (`postprocess/`) |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| 1_download.sh | | | | |
-| 2_bounding_box_train_infer.sh | cfg_loc_dh_01B cfg_loc_dh_01B_test | ds_loc_dh_1A | mdl_loc_dh_1A | pp_loc_dh_01A|
-| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_02G cfg_dh_seg_02G_test | ds_dh_seg_2D | mdl_dh_seg_2C | pp_dh_seg_02A |
-| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04A cfg_dh_seg_04A_test | ds_dh_seg_2E | mdl_dh_seg_2C | pp_dh_seg_02A |
-| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04F cfg_dh_seg_04F_test | ds_dh_seg_2H | mdl_dh_seg_2F | pp_dh_seg_02A |
-| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04F_crop | ds_dh_fracseg_3A_crop | mdl_dh_seg_3R | |
-| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04G_crop | ds_dh_fracseg_3A_crop | mdl_dh_seg_3R | |
-| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04F_crop_gx1 | ds_dh_fracseg_3I_crop | mdl_dh_seg_3G_gx1 | |
-| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04G_crop_gx1 | ds_dh_fracseg_3I_crop | mdl_dh_seg_3G_gx1 | |
+| Script (`bin/`) | Params config (`configs/`) | CNN Backbone| Data procesing (`data/`) | Model (`models/`) | Postprocessing (`postprocess/`) |
+| ------------- | ------------- | ------------- | ------------- | ------------- |------------- |
+| 1_download.sh | | | | | |
+| 2_bounding_box_train_infer.sh | cfg_loc_dh_01B cfg_loc_dh_01B_test | efficientnet_b1 | ds_loc_dh_1A | mdl_loc_dh_1A | pp_loc_dh_01A|
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_02G cfg_dh_seg_02G_test | resnest50d | ds_dh_seg_2D | mdl_dh_seg_2C | pp_dh_seg_02A |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04A cfg_dh_seg_04A_test | resnest50d | ds_dh_seg_2E | mdl_dh_seg_2C | pp_dh_seg_02A |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04F cfg_dh_seg_04F_test | efficientnetv2_rw_m | ds_dh_seg_2H | mdl_dh_seg_2F | pp_dh_seg_02A |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04F_crop | resnest50d | ds_dh_fracseg_3A_crop | mdl_dh_seg_3R | |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04G_crop | seresnext50_32x4d | ds_dh_fracseg_3A_crop | mdl_dh_seg_3R | |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04F_crop_gx1 | resnest50d | ds_dh_fracseg_3I_crop | mdl_dh_seg_3G_gx1 | |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04G_crop_gx1 | seresnext50_32x4d | ds_dh_fracseg_3I_crop | mdl_dh_seg_3G_gx1 | |
 
 ### Model 1 - find study level bounding boxes. 
 
