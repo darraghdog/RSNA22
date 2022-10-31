@@ -35,9 +35,9 @@ For reference, the scruture of the training pipeline is below.
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | 1_download.sh | | | | |
 | 2_bounding_box_train_infer.sh | cfg_loc_dh_01B cfg_loc_dh_01B_test | ds_loc_dh_1A | mdl_loc_dh_1A | pp_loc_dh_01A|
-| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_02G |  |  |  |
-| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04A |  |  |  |
-| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04F |  |  |  |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_02G cfg_dh_seg_02G_test | ds_dh_seg_2D | mdl_dh_seg_2C | pp_dh_seg_02A |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04A cfg_dh_seg_04A_test | ds_dh_seg_2E | mdl_dh_seg_2C | pp_dh_seg_02A |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04F cfg_dh_seg_04F_test | ds_dh_seg_2H | mdl_dh_seg_2F | pp_dh_seg_02A |
 
 
 ### Model 1 - find study level bounding boxes. 
