@@ -38,7 +38,10 @@ For reference, the scruture of the training pipeline is below.
 | 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_02G cfg_dh_seg_02G_test | ds_dh_seg_2D | mdl_dh_seg_2C | pp_dh_seg_02A |
 | 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04A cfg_dh_seg_04A_test | ds_dh_seg_2E | mdl_dh_seg_2C | pp_dh_seg_02A |
 | 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04F cfg_dh_seg_04F_test | ds_dh_seg_2H | mdl_dh_seg_2F | pp_dh_seg_02A |
-
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04F_crop | ds_dh_fracseg_3A_crop | mdl_dh_seg_3R | |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04G_crop | ds_dh_fracseg_3A_crop | mdl_dh_seg_3R | |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04F_crop_gx1 | ds_dh_fracseg_3I_crop | mdl_dh_seg_3G_gx1 | |
+| 4_vertebrae_fracture_train.sh | cfg_dh_fracseq_04G_crop_gx1 | ds_dh_fracseg_3I_crop | mdl_dh_seg_3G_gx1 | |
 
 ### Model 1 - find study level bounding boxes. 
 
