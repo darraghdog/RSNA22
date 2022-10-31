@@ -15,6 +15,18 @@ For convenience of monitoring models we are using [neptune.ai](https://neptune.a
 In the configs, in the `config/` directory, I have set the neptune project to `light/kaggle-rsna2022`. 
 You can switch this to your own neptune project, or else create a neptune project with that name.
    
+We ran everthing in a nvidia docker environment. 
+Make sure you have at least 40GB GPU memory. If you have less, reduce batchsize by a factor of 2 and increase accumulation by a  factor of 2 in each config file.
+   
+To use docker to set up the environment, you can run as follows, or else directly install the packages in `requirements.txt`. 
+
+```
+docker build -t rsna22 -f setup.docker .
+docker run -itd --name RSNA22 --shm-size=128G --gpus '"device=0"' --rm rsna22:latest
+docker attach RSNA22
+```
+
+   
 ## Data set up
 
 Set up your [kaggle api](https://github.com/Kaggle/kaggle-api) for data download and run the below script. 
