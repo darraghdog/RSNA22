@@ -26,7 +26,7 @@ The data is already split into folds and provided in the repo at `datamount/trai
 
 The training steps are detailed below. To run the full training pipeline, just execute, 
 ```
-./bin/2_bounding_box_train_infer.sh
+./run_all.sh
 ```
 ### Model 1 - find study level bounding boxes. 
 
@@ -146,6 +146,8 @@ For this step, see PART1 of `bin/4_vertebrae_fracture_train.sh`.
 
 ### Model 4 - Study level fracture labels
 
+For this step, see PART2 of `bin/4_vertebrae_fracture_train.sh`. 
+
 The same architecture again (2.5D CNN+1d RNN) was used to train the full study over 
 on the final study level labels, found in `train.csv`. The CNN backbone was loaded 
 from the checkpoint weights of model 3 and set to no gradients, and a new 1d RNN 
@@ -159,7 +161,17 @@ For model 4 only, the bounding box range (seen in the description of Model 1) wa
 to exclude slices before the vertebrae started and ended. 
 And for model 4, the CNN outputted embeddings were extracted in chunks of 32 * 3 2.5d images.
 
+### Inference
 
+We take the weights of the models stored at the following folders and load them so a kaggle dataset, 
+```
+weights/cfg_loc_dh_01B/fold-1/
+weights/cfg_dh_fracseq_04F_crop_gx1/fold-1/
+weights/cfg_dh_fracseq_04G_crop_gx1/fold-1/
+``` 
+We also use github actions to create a dataset of this repo in kaggle, so the same models and data preprocessing can be used.
+
+The final inference book can be found [here](https://www.kaggle.com/code/darraghdog/rsna-2022-3rd-place-solution-inference?scriptVersionId=109623994). 
 
 
 
