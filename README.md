@@ -31,10 +31,14 @@ The training steps are detailed below. To run the full training pipeline, just e
 
 For reference, the scruture of the training pipeline is below. 
 
-| Script (`bin`) | Params config (`configs/`) | Data procesing (`data/`) | Model (`models/`) | Postprocessing (`postprocess/`) |
+| Script (`bin/`) | Params config (`configs/`) | Data procesing (`data/`) | Model (`models/`) | Postprocessing (`postprocess/`) |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | 1_download.sh | | | | |
-| 2_bounding_box_train_infer.sh | cfg_loc_dh_01B | ds_loc_dh_1A | mdl_loc_dh_1A | pp_loc_dh_01A|
+| 2_bounding_box_train_infer.sh | cfg_loc_dh_01B cfg_loc_dh_01B_test | ds_loc_dh_1A | mdl_loc_dh_1A | pp_loc_dh_01A|
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_02G |  |  |  |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04A |  |  |  |
+| 3_slice_vertebrae_train_infer.sh | cfg_dh_seg_04F |  |  |  |
+
 
 ### Model 1 - find study level bounding boxes. 
 
