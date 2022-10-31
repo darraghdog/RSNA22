@@ -2,7 +2,7 @@
 RSNA 2022 - 3rd Place solution - Cervical Spine Fracture Detection
 
 This is the source code for the 3rd place solution to the [RSNA 2022 Cervical Spine Fracture Detection](https://www.kaggle.com/competitions/rsna-2022-cervical-spine-fracture-detection).  
-Video overview: [link](????)  
+Video overview: [link](https://youtu.be/x3BLoHkzUYc)  
 Slides : [link](https://docs.google.com/presentation/d/1lS4yOTJT4EyaCjODGIO811RGex9jKQdZypzOjY_jxDA/edit?usp=sharing)
   
 Sponsored by [RSNA](https://www.rsna.org/)
